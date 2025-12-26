@@ -153,11 +153,11 @@
 
 | レイヤー | 技術 |
 |---------|------|
-| フロントエンド | React Native または Flutter |
-| バックエンド | Node.js + Express または Python + FastAPI |
-| データベース | PostgreSQL または SQLite（軽量版） |
+| フロントエンド | React Native |
+| バックエンド | Python + FastAPI |
+| データベース | PostgreSQL（DBサーバーはRDS）|
 | プッシュ通知 | Firebase Cloud Messaging |
-| ホスティング | Vercel, Railway, または AWS |
+| ホスティング | AWS |
 
 ---
 
