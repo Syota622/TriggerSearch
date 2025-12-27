@@ -1,0 +1,5 @@
+- shinshina.1002@gmail.com（rootアカウント）
+- shotasuzuki0622@gmail.com（devアカウント）
+- jiangtail809gmail.com（prodアカウント）
+- wvp360gqanukcqhg@docomo.ne.jp（logアカウント）
+- jiangtail809@outlook.com（securityアカウント）
