@@ -1,0 +1,50 @@
+# プロジェクトのメタデータと依存関係を定義するファイル
+# PEP 518/621に準拠したPythonプロジェクトの標準設定ファイル
+
+[project]
+# プロジェクト名
+name = "trigger-backend"
+# バージョン
+version = "0.1.0"
+# プロジェクトの説明
+description = "TriggerSearch Backend API"
+# 必要なPythonバージョン
+requires-python = ">=3.11"
+
+# 本番環境で必要な依存関係
+dependencies = [
+    # WebAPIフレームワーク
+    "fastapi==0.115.6",
+    # FastAPIアプリケーションを実行するWebサーバー
+    "uvicorn[standard]==0.34.0",
+    # SQLAlchemy: PythonのORM（オブジェクト関係マッピング）ライブラリ
+    "sqlalchemy==2.0.36",
+    # PostgreSQL用のデータベースドライバ（非同期対応）
+    "asyncpg==0.30.0",
+    # Alembic: データベースマイグレーションツール
+    "alembic==1.14.0",
+]
+
+# 開発環境でのみ必要な依存関係（テスト、リンターなど）
+[project.optional-dependencies]
+dev = [
+    # テストフレームワーク
+    "pytest==8.3.4",
+    # 非同期テスト用
+    "pytest-asyncio==0.24.0",
+    # コードフォーマッター
+    "ruff==0.8.4",
+]
+
+# ビルドシステムの設定
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# 開発用依存関係グループ（uvの新しい推奨方式）
+[dependency-groups]
+dev = [
+    "pytest>=8.3.4",
+    "pytest-asyncio>=0.24.0",
+    "ruff>=0.8.4",
+]

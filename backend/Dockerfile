@@ -4,15 +4,26 @@ FROM python:3.11-slim
 # コンテナ内の作業ディレクトリを /app に設定
 WORKDIR /app
 
-# requirements.txt（依存パッケージのリスト）をコンテナにコピー
-COPY requirements.txt .
+# uvをインストール
+# uv: Rust製の高速Pythonパッケージマネージャー（pipの代替）
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-# pipを使ってPythonパッケージをインストール
-# --no-cache-dir: キャッシュを残さずイメージサイズを小さくする
-RUN pip install --no-cache-dir -r requirements.txt
+# 依存関係ファイルをコピー
+# requirements.txt: 依存パッケージのリスト
+COPY requirements.txt ./
 
-# カレントディレクトリの全ファイルをコンテナの /app にコピー
+# 依存関係をインストール
+# uv pip install: uvを使ってpipコマンドを実行（高速）
+# --system: システムのPython環境に直接インストール（仮想環境を作らない）
+# -r requirements.txt: requirements.txtから依存関係を読み込み
+RUN uv pip install --system -r requirements.txt
+
+# アプリケーションコードをコピー
 COPY . .
+
+# 環境変数を設定
+# Pythonの出力をバッファリングせずに表示
+ENV PYTHONUNBUFFERED=1
 
 # ポート8000を外部に公開（このポートでアプリケーションが動作）
 EXPOSE 8000
