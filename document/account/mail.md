@@ -1,5 +1,9 @@
 - shinshina.1002@gmail.com（rootアカウント）
+  - 785772044528
 - shotasuzuki0622@gmail.com（devアカウント）
+  - 235484765172
 - jiangtail809gmail.com（prodアカウント）
-- wvp360gqanukcqhg@docomo.ne.jp（logアカウント）
-- jiangtail809@outlook.com（securityアカウント）
+- jiangtail432@outlook.com（securityアカウント）
+  - 899659212090
+- jiangtail809@outlook.com（logアカウント）
+  - 432023396487
