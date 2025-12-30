@@ -1,0 +1,12 @@
+# WebAPIフレームワーク
+fastapi==0.115.6
+# FastAPIアプリケーションを実行するWebサーバー
+uvicorn[standard]==0.34.0
+
+# データベース関連
+# SQLAlchemy: PythonのORM（オブジェクト関係マッピング）ライブラリ
+sqlalchemy==2.0.36
+# PostgreSQL用のデータベースドライバ（非同期対応）
+asyncpg==0.30.0
+# Alembic: データベースマイグレーションツール
+alembic==1.14.0

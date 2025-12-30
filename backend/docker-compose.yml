@@ -1,0 +1,47 @@
+# 複数のサービス（コンテナ）を定義
+services:
+  # FastAPI アプリケーションのサービス
+  api:
+    # 現在のディレクトリのDockerfileを使ってイメージをビルド
+    build: .
+    # ポートマッピング: ホストの8000番ポートをコンテナの8000番に転送
+    ports:
+      - "8000:8000"
+    # ボリュームマウント: ローカルのコードをコンテナと同期（ホットリロード用）
+    volumes:
+      - .:/app
+    # 環境変数の設定
+    environment:
+      # Pythonの出力バッファリングを無効化（ログがリアルタイムで表示される）
+      - PYTHONUNBUFFERED=1
+      # データベース接続URL（PostgreSQLコンテナに接続）
+      # postgresql+asyncpg:// で非同期ドライバを使用
+      - DATABASE_URL=postgresql+asyncpg://postgres:password@db:5432/triggerdb
+    # 依存関係: dbサービスが起動してから起動
+    depends_on:
+      - db
+
+  # PostgreSQL データベースのサービス
+  db:
+    # PostgreSQL 16の公式イメージを使用
+    image: postgres:16
+    # コンテナ名を指定
+    container_name: postgres_db
+    # 環境変数でデータベースの初期設定
+    environment:
+      # PostgreSQLの管理者パスワード
+      - POSTGRES_PASSWORD=password
+      # 作成するデータベース名
+      - POSTGRES_DB=triggerdb
+      # PostgreSQLのユーザー名（デフォルトはpostgres）
+      - POSTGRES_USER=postgres
+    # ポートマッピング: ホストの5432番ポートをコンテナの5432番に転送
+    ports:
+      - "5432:5432"
+    # ボリュームマウント: データを永続化（コンテナ削除後もデータが残る）
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+# 名前付きボリュームの定義（データベースのデータを保存）
+volumes:
+  postgres_data:
