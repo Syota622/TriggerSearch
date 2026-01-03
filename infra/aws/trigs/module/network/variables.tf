@@ -5,7 +5,7 @@ variable "env" {
   type        = string
 }
 
-variable "pj" {
+variable "product" {
   description = "Product name (used in resource naming)"
   type        = string
 }
@@ -22,40 +22,45 @@ variable "vpc_cidr" {
   default     = "10.0.0.0/16"
 }
 
-variable "availability_zones" {
-  description = "List of availability zones"
-  type        = list(string)
-  default     = ["ap-northeast-1a", "ap-northeast-1c", "ap-northeast-1d"]
-}
-
-variable "public_subnet_cidrs" {
-  description = "CIDR blocks for public subnets (one per availability zone)"
-  type        = list(string)
-  default     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
-}
-
-variable "private_subnet_cidrs" {
-  description = "CIDR blocks for private subnets (one per availability zone)"
-  type        = list(string)
-  default     = ["10.0.11.0/24", "10.0.12.0/24", "10.0.13.0/24"]
-}
-
-variable "enable_nat_gateway" {
-  description = "Enable NAT Gateway for private subnets"
-  type        = bool
-  default     = true
-}
-
-variable "enable_dns_hostnames" {
-  description = "Enable DNS hostnames in VPC"
-  type        = bool
-  default     = true
-}
-
-variable "enable_dns_support" {
-  description = "Enable DNS support in VPC"
-  type        = bool
-  default     = true
+variable "subnets" {
+  description = "サブネット設定のマップ。キーはサブネット名、値は CIDR、AZ、public フラグを含むオブジェクトです"
+  type = map(object({
+    cidr   = string # サブネットのCIDRブロック（例: "10.0.1.0/24"）
+    az     = string # 可用性ゾーン（例: "ap-northeast-1a"）
+    public = bool   # Public サブネットの場合は true、Private の場合は false
+  }))
+  default = {
+    public-1a = {
+      cidr   = "10.0.1.0/24"
+      az     = "ap-northeast-1a"
+      public = true
+    }
+    public-1c = {
+      cidr   = "10.0.2.0/24"
+      az     = "ap-northeast-1c"
+      public = true
+    }
+    public-1d = {
+      cidr   = "10.0.3.0/24"
+      az     = "ap-northeast-1d"
+      public = true
+    }
+    private-1a = {
+      cidr   = "10.0.11.0/24"
+      az     = "ap-northeast-1a"
+      public = false
+    }
+    private-1c = {
+      cidr   = "10.0.12.0/24"
+      az     = "ap-northeast-1c"
+      public = false
+    }
+    private-1d = {
+      cidr   = "10.0.13.0/24"
+      az     = "ap-northeast-1d"
+      public = false
+    }
+  }
 }
 
 variable "tags" {

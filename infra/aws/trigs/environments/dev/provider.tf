@@ -17,7 +17,7 @@ provider "aws" {
   default_tags {
     tags = {
       Environment = local.env
-      Product     = local.pj
+      Product     = local.product
       ManagedBy   = "Terraform"
     }
   }

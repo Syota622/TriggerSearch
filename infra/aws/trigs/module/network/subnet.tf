@@ -1,33 +1,18 @@
-# Public Subnets
-resource "aws_subnet" "public" {
-  count = length(var.availability_zones)
-
-  vpc_id                  = aws_vpc.main.id
-  cidr_block              = var.public_subnet_cidrs[count.index]
-  availability_zone       = var.availability_zones[count.index]
-  map_public_ip_on_launch = true
-
-  tags = merge(
-    {
-      Name = "${var.env}-${var.pj}-public-${substr(var.availability_zones[count.index], -1, 1)}"
-      Type = "public"
-    },
-    var.tags
-  )
-}
-
-# Private Subnets
-resource "aws_subnet" "private" {
-  count = length(var.availability_zones)
+# Subnets (Public and Private)
+resource "aws_subnet" "main" {
+  for_each = var.subnets
 
   vpc_id            = aws_vpc.main.id
-  cidr_block        = var.private_subnet_cidrs[count.index]
-  availability_zone = var.availability_zones[count.index]
+  cidr_block        = each.value.cidr
+  availability_zone = each.value.az
+
+  # Public サブネットの場合のみ自動割り当て IP を有効化
+  map_public_ip_on_launch = each.value.public
 
   tags = merge(
     {
-      Name = "${var.env}-${var.pj}-private-${substr(var.availability_zones[count.index], -1, 1)}"
-      Type = "private"
+      Name = "${var.env}-${var.product}-${each.key}"
+      Type = each.value.public ? "public" : "private"
     },
     var.tags
   )

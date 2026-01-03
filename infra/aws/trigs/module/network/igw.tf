@@ -4,7 +4,7 @@ resource "aws_internet_gateway" "main" {
 
   tags = merge(
     {
-      Name = "${var.env}-${var.pj}"
+      Name = "${var.env}-${var.product}"
     },
     var.tags
   )

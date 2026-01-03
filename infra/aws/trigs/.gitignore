@@ -9,10 +9,8 @@
 crash.log
 crash.*.log
 
-# Exclude all .tfvars files, which are likely to contain sensitive data
-# such as password, private keys, and other secrets.
-# These should not be part of version control as they are data points
-# which are potentially sensitive and subject to change depending on the environment.
+# Terraform Lock files - プロバイダーのバージョンを固定するファイル
+# 環境ごとに異なる可能性があるため、通常はバージョン管理から除外します
 *.lock.hcl
 *.tfvars
 *.tfvars.json
@@ -33,5 +31,15 @@ override.tf.json
 .terraformrc
 terraform.rc
 
-# Lock files (optional: some teams prefer to commit this)
-# .terraform.lock.hcl
+# Terraform Lock files (.terraform.lock.hcl)
+# このファイルは Terraform が自動生成するファイルで、使用するプロバイダー（AWS など）のバージョンを固定します
+# 環境ごとに異なる可能性があるため、通常はバージョン管理から除外します
+# 
+# 【重要な注意事項】
+# 既に git に追加されているファイルは、この設定だけでは無視されません
+# 既存のファイルを無視するには、以下のコマンドで git の追跡から外す必要があります:
+# git rm --cached environments/dev/.terraform.lock.hcl
+# 
+# 注意: *.lock.hcl パターン（上記14行目）で既にカバーされていますが、
+# より明確にするために明示的に記載しています
+**/.terraform.lock.hcl

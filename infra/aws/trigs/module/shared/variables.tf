@@ -1,3 +1,3 @@
 ### variable ###
-variable "pj" {}
+variable "product" {}
 variable "env" {}

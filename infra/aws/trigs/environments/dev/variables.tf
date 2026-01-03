@@ -2,5 +2,5 @@
 
 locals {
   env       = "dev"
-  pj        = "trigs"
+  product        = "trigs"
 }

@@ -3,6 +3,6 @@
 # Network Module
 module "network" {
   source = "../network"
-  pj     = var.pj
+  product     = var.product
   env    = var.env
 }
