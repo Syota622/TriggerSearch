@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.5.0"
+  required_version = ">= 1.4.0"
 
   required_providers {
     aws = {
@@ -11,7 +11,7 @@ terraform {
 
 # AWS Provider Configuration
 provider "aws" {
-  region  = local.aws_region
+  region  = "ap-northeast-1"
   profile = "dev-trigs"
 
   default_tags {
