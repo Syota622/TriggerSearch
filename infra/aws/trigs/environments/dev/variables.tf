@@ -1,21 +1,7 @@
-# Variables for Dev Environment
+# Locals for Dev Environment
 
-variable "environment" {
-  description = "Environment name"
-  type        = string
-  default     = "dev"
+locals {
+  env       = "dev"
+  pj        = "trigs"
+  aws_region = "ap-northeast-1"
 }
-
-variable "product_name" {
-  description = "Product name (used in resource naming)"
-  type        = string
-  default     = "trigs"
-}
-
-variable "aws_region" {
-  description = "AWS region"
-  type        = string
-  default     = "ap-northeast-1"
-}
-
-# Add more variables as needed for your infrastructure
